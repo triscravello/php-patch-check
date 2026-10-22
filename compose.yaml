@@ -1,0 +1,19 @@
+services:
+  old:
+    # Final patched state. Step 2 starts with php:8.3.35-apache.
+    image: php:8.3.36-apache
+    platform: linux/amd64
+    ports:
+      - "127.0.0.1:8081:80"
+    volumes:
+      - ./app:/var/www/html:ro
+      - ./config/old.ini:/usr/local/etc/php/conf.d/zz-patch-check.ini:ro
+
+  new:
+    image: php:8.3.36-apache
+    platform: linux/amd64
+    ports:
+      - "127.0.0.1:8082:80"
+    volumes:
+      - ./app:/var/www/html:ro
+      - ./config/new.ini:/usr/local/etc/php/conf.d/zz-patch-check.ini:ro
